@@ -1279,6 +1279,11 @@ kbd {
     gap: var(--spacing-md);
     position: relative;
     z-index: 1000;
+    transition: transform var(--transition-normal);
+}
+
+.main-header.header-hidden {
+    transform: translateY(-110%);
 }
 
 .navigation-controls {

@@ -544,4 +544,31 @@ export function initializeUIInteractions(player, api, ui) {
             }
         }
     });
+
+    // Auto-hide header on scroll (mobile)
+    const mainContent = document.querySelector('.main-content');
+    const mainHeader = document.querySelector('.main-header');
+    let lastScrollTop = 0;
+    const SCROLL_THRESHOLD = 50;
+
+    if (mainContent && mainHeader) {
+        mainContent.addEventListener('scroll', () => {
+            if (window.innerWidth > 768) {
+                mainHeader.classList.remove('header-hidden');
+                return;
+            }
+
+            const scrollTop = mainContent.scrollTop;
+            if (Math.abs(lastScrollTop - scrollTop) <= 5) return;
+
+            if (scrollTop > lastScrollTop && scrollTop > SCROLL_THRESHOLD) {
+                // Scrolling down - hide header
+                mainHeader.classList.add('header-hidden');
+            } else {
+                // Scrolling up - show header
+                mainHeader.classList.remove('header-hidden');
+            }
+            lastScrollTop = scrollTop;
+        });
+    }
 }
